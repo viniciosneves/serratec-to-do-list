@@ -6,10 +6,16 @@ import Item from "./Item";
 function App() {
 
   const [tarefas, setTarefas] = useState([])
-
   const adicionarTarefa = (tarefa) => {
     setTarefas([
       tarefa,
+      ...tarefas
+    ])
+  }
+
+  const excluir = (xpto) => {
+    tarefas.splice(xpto, 1)
+    setTarefas([
       ...tarefas
     ])
   }
@@ -19,7 +25,12 @@ function App() {
       <Formulario aoSalvar={adicionarTarefa}/>
       <Tarefas>
         {tarefas.map((item, indice) => 
-        <Item key={indice} item={item.tarefa} />)}
+          // <li key={indice}>
+          //   {item.tarefa} - [ <a href="/#" onClick={() => { excluir(indice) }}>excluir</a> ]
+          // </li>
+        <Item key={indice} excluir={excluir} indice={indice} item={item.tarefa}/>
+        
+        )}
       </Tarefas>
     </div>
   );
