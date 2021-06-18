@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Formulario from "./Formulario";
+import Tarefas from "./Tarefas";
+import Item from "./Item";
 
 function App() {
+
+  const [tarefas, setTarefas] = useState([])
+
+  const adicionarTarefa = (tarefa) => {
+    setTarefas([
+      tarefa,
+      ...tarefas
+    ])
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Formulario aoSalvar={adicionarTarefa}/>
+      <Tarefas>
+        {tarefas.map((item, indice) => 
+        <Item key={indice} item={item.tarefa} />)}
+      </Tarefas>
     </div>
   );
 }
